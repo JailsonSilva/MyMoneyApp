@@ -10,11 +10,10 @@ import TabsContent from "../common/tab/tabsContent";
 import TabHeader from "../common/tab/tabHeader";
 import TabContent from "../common/tab/tabContent";
 import {selectTab, showTabs} from "../common/tab/tabActions";
-import {create} from "./billingCycleActions";
+import {create, update, remove} from "./billingCycleActions";
 
 import BillingCycleList from "./billingCycleList";
 import BillingCycleForm from "./billingCycleForm";
-import { Form } from "redux-form";
 
 class BillingCycle extends Component{
 
@@ -38,8 +37,8 @@ class BillingCycle extends Component{
                         <TabsContent>
                             <TabContent id="tabList"><BillingCycleList /></TabContent>
                             <TabContent id="tabCreate"><BillingCycleForm onSubmit={this.props.create}/></TabContent>
-                            <TabContent id="tabUpdate"><BillingCycleForm /></TabContent>
-                            <TabContent id="tabDelete"><h1>Excluir</h1></TabContent>
+                            <TabContent id="tabUpdate"><BillingCycleForm onSubmit={this.props.update}/></TabContent>
+                            <TabContent id="tabDelete"><BillingCycleForm onSubmit={this.props.remove} readOnly={true}/></TabContent>
                         </TabsContent>
                     </Tabs>
                 </Content>
@@ -48,5 +47,5 @@ class BillingCycle extends Component{
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({selectTab, showTabs, create}, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({selectTab, showTabs, create, update, remove}, dispatch)
 export default connect(null, mapDispatchToProps)(BillingCycle)
