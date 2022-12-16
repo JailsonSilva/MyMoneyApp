@@ -84,7 +84,7 @@ class itemList extends Component{
                                 <If test={this.props.showStatus}>
                                     <th>Status</th>
                                 </If>
-                                <th>Ações</th>
+                                <th className="table-actions">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
