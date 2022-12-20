@@ -26,13 +26,20 @@ export function remove(values){
     return submit(values, 'delete')
 }
 
+export function returnInit(values){
+    return (
+        submit(values, 'put'),
+        init()
+    )
+}
+
 function submit(values, method){
     return dispatch => {
         const id = values._id ? values._id : ''
         axios[method](`${BASE_URL}/billingCycles/${id}`, values)
             .then(resp => {
                 toastr.success('Sucesso', 'Operação realizada com sucesso!')
-                dispatch(init())
+                //dispatch(init())
             })
             .catch(e => {
                 e.response.data.errors.forEach(error => toastr.error('Erro', error));

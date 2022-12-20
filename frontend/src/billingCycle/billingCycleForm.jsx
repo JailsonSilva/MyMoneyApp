@@ -7,6 +7,7 @@ import { init } from "./billingCycleActions";
 import labelAndInput from "../common/form/labelAndInput";
 import ItemList from "./itemList";
 import Summary from "./summary";
+import If from "../common/operador/if";
 
 class BillingCycleForm extends Component{
 
@@ -19,7 +20,7 @@ class BillingCycleForm extends Component{
     }
 
     render(){
-        const {handleSubmit, readOnly, credits, debts} = this.props
+        const {handleSubmit, readOnly, credits, debts, salvar} = this.props
         const {sumOfCredits, sumOfDebts} = this.calculateSummary()
         return (
             <form role="form" onSubmit={handleSubmit}>
@@ -47,7 +48,6 @@ class BillingCycleForm extends Component{
                         label="Ano" 
                         cols="12 4" 
                         placeholder="Informe o ano" />
-                    <Summary credit={sumOfCredits} debt={sumOfDebts} />
                     <ItemList 
                         cols="12 6" 
                         list={credits} 
@@ -61,10 +61,14 @@ class BillingCycleForm extends Component{
                         field="debts"
                         legend="Débitos"
                         showStatus={true} />
+                    <Summary credit={sumOfCredits} debt={sumOfDebts} />
                 </div>
                 <div className="box-footer">
-                    <button type="submit" className={`btn btn-${this.props.submitClass}`}>{this.props.submitLabel}</button>
-                    <button type="button" className="btn btn-default" onClick={this.props.init}>Cancelar</button>
+                    {/* <button type="submit" className={`btn btn-${this.props.submitClass}`}>{this.props.submitLabel}</button> */}
+                    <If test={!this.props.readOnly}>
+                        <button type="submit" className="btn btn-primary">Salvar</button>
+                    </If>
+                    <button type="button" className="btn btn-danger" onClick={this.props.init}>Voltar</button>
                 </div>
             </form>
         )
